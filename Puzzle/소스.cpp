@@ -1,13 +1,18 @@
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES	1
 
+
+#include<iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include <string.h>
 #include <bangtal.h>
-
+#include <string.h>
+#include <string>
 SceneID scene;
 ObjectID start;
+
+using namespace std;
 
 struct POS {
 	int x, y;
@@ -28,7 +33,27 @@ const int mixCount = 200;
 const Second animationTime = 0.05f;
 int mixing = 0;
 
+//타이머 만들자
+TimerID timer1;
+int number = 10000 - timer1;
+int time1;
+int timeStart;
+int time2;
+
+int time_ed;
+int time_st;
+const char* time_f;
+string time_s;
+
+TimerID timerStart;
+
 bool game = false;
+
+
+void startTimer()
+{
+
+}
 
 void game_init()
 {
@@ -121,6 +146,8 @@ void game_prepare()
 	// start to mix
 	setTimer(timerMixing, animationTime);
 	startTimer(timerMixing);
+
+	
 }
 
 bool game_check()
@@ -137,7 +164,14 @@ void game_end()
 	game = false;
 
 	showObject(gameObjects[blank]);
+	setObjectImage(start, "Images/restart.png");
 	showObject(start);
+
+	time_ed = time(NULL);
+	int time_d = (time_ed - time_st);
+	time_s = std::to_string(time_d);
+	time_f = time_s.c_str();
+	showMessage(time_f);
 }
 
 void mouseCallback(ObjectID object, int x, int y, MouseAction action)
@@ -147,10 +181,13 @@ void mouseCallback(ObjectID object, int x, int y, MouseAction action)
 
 		if (game_check()) {
 			game_end();
+			
+			//showMessage("소요시간은 %d초 입니다.", number);
 		}
 	}
 	else if (mixing == 0 && object == start) {
 		game_prepare();
+		time_st = time(NULL);
 	}
 }
 
@@ -180,16 +217,6 @@ int main()
 	setTimerCallback(timerCallback);
 
 	game_init();
-
-	//시간 출력
-	time_t start = time(NULL);
-
-	int sum = 0;
-	for (int i = 0; i < 100000; ++i) sum += i;
-	printf("sum = %d\n", sum);
-
-	time_t end = time(NULL);
-	printf("Time = %f\n", difftime(end, start));
 
 	startGame(scene);
 }

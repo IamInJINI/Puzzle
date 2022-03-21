@@ -1,0 +1,4 @@
+﻿  소스.cpp
+C:\bangtal\Puzzle\Puzzle\소스.cpp(170,16): warning C4244: '=': 'time_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\bangtal\Puzzle\Puzzle\소스.cpp(190,17): warning C4244: '=': 'time_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Puzzle.vcxproj -> C:\bangtal\Puzzle\Debug\Puzzle.exe
